@@ -14,7 +14,7 @@ enum ExitStatus
 	KILLED_BY_SELF
 };
 
-static void SetPos(int x, int y)// ÒÆ¶¯¹â±êµ½x£¬y´¦£¬×¢Òâ£¬ÕâÀïÊÇÏà¶ÔÕû¸öÆÁÄ»µÄ£¬¶ø²»ÊÇÓÎÏ·ÇøÓòµÄ
+static void SetPos(int x, int y)// ç§»åŠ¨å…‰æ ‡åˆ°xï¼Œyå¤„ï¼Œæ³¨æ„ï¼Œè¿™é‡Œæ˜¯ç›¸å¯¹æ•´ä¸ªå±å¹•çš„ï¼Œè€Œä¸æ˜¯æ¸¸æˆåŒºåŸŸçš„
 {
 	COORD point = { x, y };
 	HANDLE HOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -32,38 +32,38 @@ static void ResetCursorPosition(const struct UI *pUI)
 	SetPos(0, pUI->WindowHeight - 1);
 }
 
-static void InitializeSnake(struct Snake *pSnake);// ³õÊ¼»¯Éß½á¹¹Ìå
+static void InitializeSnake(struct Snake *pSnake);// åˆå§‹åŒ–è›‡ç»“æ„ä½“
 
-static bool IsOverlapSnake(int x, int y, const struct Snake *pSnake);// ÅĞ¶ÏÊ³Îï×ø±êÊÇ·ñºÍÉßÓĞÖØµş
+static bool IsOverlapSnake(int x, int y, const struct Snake *pSnake);// åˆ¤æ–­é£Ÿç‰©åæ ‡æ˜¯å¦å’Œè›‡æœ‰é‡å 
 
-static void GenerateFood(struct Game *pGame);// Éú³ÉÒ»¸öÊ³Îï
+static void GenerateFood(struct Game *pGame);// ç”Ÿæˆä¸€ä¸ªé£Ÿç‰©
 
-static struct Point GetNextPosition(const struct Snake *pSnake);// »ñÈ¡Éß¼´½«½øÈëµÄ×ø±ê
+static struct Point GetNextPosition(const struct Snake *pSnake);// è·å–è›‡å³å°†è¿›å…¥çš„åæ ‡
 
-static bool IsWillEatFood(struct Point NextPoint, struct Point FoodPoint);// ÅĞ¶ÏÉßÊÇ·ñ½«³Ôµ½Ê³Îï
+static bool IsWillEatFood(struct Point NextPoint, struct Point FoodPoint);// åˆ¤æ–­è›‡æ˜¯å¦å°†åƒåˆ°é£Ÿç‰©
 
-static void GrowSnakeAndDisplay(struct Snake *pSnake, struct Point FoodPoint, const struct UI *pUI);// Ôö³¤Éß²¢ÇÒ½øĞĞÏÔÊ¾
+static void GrowSnakeAndDisplay(struct Snake *pSnake, struct Point FoodPoint, const struct UI *pUI);// å¢é•¿è›‡å¹¶ä¸”è¿›è¡Œæ˜¾ç¤º
 
-static void AddHead(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI);// Ôö³¤ÉßÍ·
+static void AddHead(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI);// å¢é•¿è›‡å¤´
 
-static void RemoveTail(struct Snake *pSnake, const struct UI *pUI);// É¾³ıÉßÎ²
+static void RemoveTail(struct Snake *pSnake, const struct UI *pUI);// åˆ é™¤è›‡å°¾
 
-static void MoveSnakeAndDisplay(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI);// ÒÆ¶¯Éß²¢ÇÒ½øĞĞÏÔÊ¾
+static void MoveSnakeAndDisplay(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI);// ç§»åŠ¨è›‡å¹¶ä¸”è¿›è¡Œæ˜¾ç¤º
 
-static bool IsKilledByWall(const struct Node *pHead, int width, int height);// ÉßÊÇ·ñ×²Ç½ÁË
+static bool IsKilledByWall(const struct Node *pHead, int width, int height);// è›‡æ˜¯å¦æ’å¢™äº†
 
-static bool IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake);// ÉßÊÇ·ñ×²×Ô¼ºÁË
+static bool IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake);// è›‡æ˜¯å¦æ’è‡ªå·±äº†
 
-static bool IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus);// ÉßÊÇ·ñ´æ»î
+static bool IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus);// è›‡æ˜¯å¦å­˜æ´»
 
-static void HandleDirective(struct Game *pGame);// ´¦Àí·½ÏòÖ¸Áî
+static void HandleDirective(struct Game *pGame);// å¤„ç†æ–¹å‘æŒ‡ä»¤
 
-static void DisplaySnake(const struct UI *pUI, const struct Snake *pSnake);// ÏÔÊ¾ÍêÕûµÄÉß
+static void DisplaySnake(const struct UI *pUI, const struct Snake *pSnake);// æ˜¾ç¤ºå®Œæ•´çš„è›‡
 
-static void _Pause();// ÔİÍ£
+static void _Pause();// æš‚åœ
 
 
-void CleanBodyColor(const struct UI *pUI, struct Game *pGame)//Çå³ıÉßÉíÌåÑÕÉ«
+void CleanBodyColor(const struct UI *pUI, struct Game *pGame)//æ¸…é™¤è›‡èº«ä½“é¢œè‰²
 {
 	UICleanBlockAtXY(pUI, pGame->FoodPoint.x, pGame->FoodPoint.y);
 	CoordinatePosAtXY(pUI, pGame->FoodPoint.x, pGame->FoodPoint.y);
@@ -72,7 +72,7 @@ void CleanBodyColor(const struct UI *pUI, struct Game *pGame)//Çå³ıÉßÉíÌåÑÕÉ«
 }
 
 
-static void InitializeSnake(struct Snake *pSnake)//³õÊ¼»¯ÉßµÄ½á¹¹Ìå
+static void InitializeSnake(struct Snake *pSnake)//åˆå§‹åŒ–è›‡çš„ç»“æ„ä½“
 {
 	const int length = 3;
 	const int x = 5;
@@ -93,7 +93,7 @@ static void InitializeSnake(struct Snake *pSnake)//³õÊ¼»¯ÉßµÄ½á¹¹Ìå
 	}
 }
 
-static bool IsOverlapSnake(int x, int y, const struct Snake *pSnake)// ÅĞ¶ÏÊ³Îï×ø±êÊÇ·ñºÍÉßÓĞÖØµş
+static bool IsOverlapSnake(int x, int y, const struct Snake *pSnake)// åˆ¤æ–­é£Ÿç‰©åæ ‡æ˜¯å¦å’Œè›‡æœ‰é‡å 
 {
 	struct Node *pNode;
 
@@ -108,13 +108,13 @@ static bool IsOverlapSnake(int x, int y, const struct Snake *pSnake)// ÅĞ¶ÏÊ³Îï×
 	return false;
 }
 
-static void GenerateFood(struct Game *pGame)// Éú³ÉÒ»¸öÊ³Îï
+static void GenerateFood(struct Game *pGame)// ç”Ÿæˆä¸€ä¸ªé£Ÿç‰©
 {
 	int x, y;
 
 	do 
 	{
-		x = rand() % (pGame->Width - 4);
+		x = rand() % (pGame->Width - 2);
 		y = rand() % (pGame->Height - 2);
 	} while (IsOverlapSnake(x, y, &pGame->snake));
 
@@ -122,7 +122,7 @@ static void GenerateFood(struct Game *pGame)// Éú³ÉÒ»¸öÊ³Îï
 	pGame->FoodPoint.y = y;
 }
 
-static struct Point GetNextPosition(const struct Snake *pSnake)// »ñÈ¡Éß¼´½«½øÈëµÄ×ø±ê
+static struct Point GetNextPosition(const struct Snake *pSnake)// è·å–è›‡å³å°†è¿›å…¥çš„åæ ‡
 {
 	int nextX, nextY;
 
@@ -154,12 +154,12 @@ static struct Point GetNextPosition(const struct Snake *pSnake)// »ñÈ¡Éß¼´½«½øÈë
 	return point;
 }
 
-static bool IsWillEatFood(struct Point NextPoint, struct Point FoodPoint)// ÅĞ¶ÏÉßÊÇ·ñ½«³Ôµ½Ê³Îï
+static bool IsWillEatFood(struct Point NextPoint, struct Point FoodPoint)// åˆ¤æ–­è›‡æ˜¯å¦å°†åƒåˆ°é£Ÿç‰©
 {
 	return NextPoint.x == FoodPoint.x && NextPoint.y == FoodPoint.y;
 }
 
-static void GrowSnakeAndDisplay(struct Snake *pSnake, struct Point FoodPoint, const struct UI *pUI)// Ôö³¤Éß²¢ÇÒ½øĞĞÏÔÊ¾
+static void GrowSnakeAndDisplay(struct Snake *pSnake, struct Point FoodPoint, const struct UI *pUI)// å¢é•¿è›‡å¹¶ä¸”è¿›è¡Œæ˜¾ç¤º
 {
 	struct Node *pHead = (struct Node *)malloc(sizeof(struct Node));
 	pHead->point.x = FoodPoint.x;
@@ -168,10 +168,10 @@ static void GrowSnakeAndDisplay(struct Snake *pSnake, struct Point FoodPoint, co
 	pHead->pNext = pSnake->pBody;
 	pSnake->pBody = pHead;
 	
-	UIShowFoodAtXY(pUI, FoodPoint.x, FoodPoint.y);
+	UIShowSnakeBlockAtXY(pUI, FoodPoint.x, FoodPoint.y);
 }
 
-static void AddHead(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI)// Ôö³¤ÉßÍ·
+static void AddHead(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI)// å¢é•¿è›‡å¤´
 {
 	struct Node *pNode = (struct Node *)malloc(sizeof(struct Node));
 
@@ -184,7 +184,7 @@ static void AddHead(struct Snake *pSnake, struct Point NextPoint, const struct U
 	UIShowSnakeBlockAtXY(pUI, NextPoint.x, NextPoint.y);
 }
 
-static void RemoveTail(struct Snake *pSnake, const struct UI *pUI)// É¾³ıÉßÎ²
+static void RemoveTail(struct Snake *pSnake, const struct UI *pUI)// åˆ é™¤è›‡å°¾
 {
 	struct Node *pNode = pSnake->pBody;
 
@@ -199,13 +199,13 @@ static void RemoveTail(struct Snake *pSnake, const struct UI *pUI)// É¾³ıÉßÎ²
 	pNode->pNext = NULL;
 }
 
-static void MoveSnakeAndDisplay(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI)// ÒÆ¶¯Éß²¢ÇÒ½øĞĞÏÔÊ¾
+static void MoveSnakeAndDisplay(struct Snake *pSnake, struct Point NextPoint, const struct UI *pUI)// ç§»åŠ¨è›‡å¹¶ä¸”è¿›è¡Œæ˜¾ç¤º
 {
 	RemoveTail(pSnake, pUI);
 	AddHead(pSnake, NextPoint, pUI);
 }
 
-static bool IsKilledByWall(const struct Node *pHead, int width, int height)// ÉßÊÇ·ñ×²Ç½ÁË
+static bool IsKilledByWall(const struct Node *pHead, int width, int height)// è›‡æ˜¯å¦æ’å¢™äº†
 {
 	if (pHead->point.x < 0 || pHead->point.x >= width - 1) 
 	{
@@ -220,7 +220,7 @@ static bool IsKilledByWall(const struct Node *pHead, int width, int height)// Éß
 	return false;
 }
 
-static bool IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake)// ÉßÊÇ·ñ×²×Ô¼ºÁË
+static bool IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake)// è›‡æ˜¯å¦æ’è‡ªå·±äº†
 {
 	struct Node *pNode;
 
@@ -236,7 +236,7 @@ static bool IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake)
 	return false;
 }
 
-static bool IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus)// ÉßÊÇ·ñ´æ»î
+static bool IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus)// è›‡æ˜¯å¦å­˜æ´»
 {
 	struct Node *pHead = pGame->snake.pBody;
 
@@ -255,7 +255,7 @@ static bool IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus)/
 	return true;
 }
 
-static void HandleDirective(struct Game *pGame)// ´¦Àí·½ÏòÖ¸Áî
+static void HandleDirective(struct Game *pGame)// å¤„ç†æ–¹å‘æŒ‡ä»¤
 {
 	if (GetAsyncKeyState(VK_UP) && pGame->snake.direction != DOWN) {
 		pGame->snake.direction = UP;
@@ -271,7 +271,7 @@ static void HandleDirective(struct Game *pGame)// ´¦Àí·½ÏòÖ¸Áî
 	}
 }
 
-static void DisplaySnake(const struct UI *pUI, const struct Snake *pSnake)// ÏÔÊ¾ÍêÕûµÄÉß
+static void DisplaySnake(const struct UI *pUI, const struct Snake *pSnake)// æ˜¾ç¤ºå®Œæ•´çš„è›‡
 {
 	struct Node *pNode;
 
@@ -323,7 +323,7 @@ void StartGame(struct Game *pGame)
 		{
 			_Pause();
 		}
-		HandleDirective(pGame);// ´¦Àí·½ÏòÖ¸Áî
+		HandleDirective(pGame);// å¤„ç†æ–¹å‘æŒ‡ä»¤
 		struct Point NextPoint = GetNextPosition(&pGame->snake);
 
 		if (IsWillEatFood(NextPoint, pGame->FoodPoint)) {
@@ -349,7 +349,7 @@ void StartGame(struct Game *pGame)
 			{
 				pGame->ScorePerFood = pGame->ScorePerFood + 10;
 				time = time - 50;
-				UIShowScore(pUI, pGame->Score, pGame->ScorePerFood);//¼°Ê±¸üĞÂµ¥¸öµÃ·Ö
+				UIShowScore(pUI, pGame->Score, pGame->ScorePerFood);//åŠæ—¶æ›´æ–°å•ä¸ªå¾—åˆ†
 			}
 		}
 		if (GetAsyncKeyState(VK_F2))
@@ -358,7 +358,7 @@ void StartGame(struct Game *pGame)
 			{
 				pGame->ScorePerFood = pGame->ScorePerFood - 10;
 				time = time + 50;
-				UIShowScore(pUI, pGame->Score, pGame->ScorePerFood);//¼°Ê±¸üĞÂµ¥¸öµÃ·Ö
+				UIShowScore(pUI, pGame->Score, pGame->ScorePerFood);//åŠæ—¶æ›´æ–°å•ä¸ªå¾—åˆ†
 			}
 		}
 
@@ -366,9 +366,9 @@ void StartGame(struct Game *pGame)
 	}
 
 	char *messages[3];
-	messages[QUIT] = "ÓÎÏ·½áÊø";
-	messages[KILLED_BY_WALL] = "ÓÎÏ·½áÊø£¬×²µ½Ç½ÁË";
-	messages[KILLED_BY_SELF] = "ÓÎÏ·½áÊø£¬×²µ½×Ô¼ºÁË";
+	messages[QUIT] = "æ¸¸æˆç»“æŸ";
+	messages[KILLED_BY_WALL] = "æ¸¸æˆç»“æŸï¼Œæ’åˆ°å¢™äº†";
+	messages[KILLED_BY_SELF] = "æ¸¸æˆç»“æŸï¼Œæ’åˆ°è‡ªå·±äº†";
 	UIShowMessage(pUI, messages[exitStatus]);
 
 	UIDestory(pUI);
